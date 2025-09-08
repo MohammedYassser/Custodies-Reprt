@@ -1,5 +1,0 @@
-[phases.setup]
-aptPkgs = ["unixodbc-dev", "unixodbc", "freetds-dev"]
-
-[phases.install]
-dependsOn = ["setup"]
