@@ -6,24 +6,11 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     unixodbc-dev \
     unixodbc \
-    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    lsb-release \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/keyrings/microsoft.gpg \
+    && curl -sSL https://packages.microsoft.com/config/debian/11/prod.list | sed 's#deb https://#deb [signed-by=/etc/apt/keyrings/microsoft.gpg] https://#g' > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update \
     && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /app
-
-# Copy requirements and install Python packages
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy application code
-COPY . .
-
-# Expose port
-EXPOSE 8080
-
-# Start the application
-CMD streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
