@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
-RUN pip install --no-cache-dir pyodbc pandas streamlit
+RUN pip install --no-cache-dir pyodbc pandas streamlit python-dotenv
 
 # Set working directory
 WORKDIR /app
