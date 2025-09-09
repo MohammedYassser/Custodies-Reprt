@@ -1,12 +1,9 @@
-from dotenv import load_dotenv
 import os
 import pyodbc
 import streamlit as st
 import pandas as pd
 
-@st.cache_resource
-
-
+# Use environment variables directly (Railway provides them)
 env = {
     "server": os.getenv("DB_SERVER"),
     "database": os.getenv("DB_NAME"),
@@ -90,4 +87,5 @@ try:
     conn.close()
 except Exception as e:
     print("Connection failed:", e)
+
 
