@@ -5,17 +5,15 @@ import streamlit as st
 import pandas as pd
 
 @st.cache_resource
-def load_env():
-    load_dotenv()
-    return {
-        "server": os.getenv("DB_SERVER"),
-        "database": os.getenv("DB_NAME"),
-        "username": os.getenv("DB_USER"),
-        "password": os.getenv("DB_PASSWORD"),
-        "driver": os.getenv("DB_DRIVER"),
-    }
 
-env = load_env()
+
+env = {
+    "server": os.getenv("DB_SERVER"),
+    "database": os.getenv("DB_NAME"),
+    "username": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "driver": os.getenv("DB_DRIVER"),
+}
 
 # Build connection string
 conn_str = (
@@ -92,3 +90,4 @@ try:
     conn.close()
 except Exception as e:
     print("Connection failed:", e)
+
