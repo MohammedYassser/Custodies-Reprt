@@ -18,8 +18,8 @@ RUN pip install --no-cache-dir pyodbc pandas streamlit
 # Set working directory
 WORKDIR /app
 
-# Copy your app files
+# Copy app files
 COPY . /app
 
-# Default command to run Streamlit
-CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT:-8501} --server.address=0.0.0.0"]
+# Streamlit command
+CMD sh -c "streamlit run app.py --server.port=\${PORT:-8501} --server.address=0.0.0.0 --server.headless=true"
